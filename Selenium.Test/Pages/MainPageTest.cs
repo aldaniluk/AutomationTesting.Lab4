@@ -18,6 +18,7 @@ namespace Selenium.Test.Pages
         public void Init()
         {
             driver = DriverInstance.Get();
+            DriverInstance.SetWaitTime(30);
         }
 
         [TearDown]
