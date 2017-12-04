@@ -40,6 +40,7 @@ namespace Selenium.Test.Pages
                 StringComparison.InvariantCultureIgnoreCase) == 0);
         }
 
+        [Test]
         public void OpenMostPopularRussianAirport()
         {
             MainPage mainPage = new MainPage(driver);
@@ -48,10 +49,11 @@ namespace Selenium.Test.Pages
             Assert.AreEqual(driver.Url, MostPopularRussianAirportPage.URL);
         }
 
+        [Test]
         public void OpenAllRussianAirports()
         {
             MainPage mainPage = new MainPage(driver);
-            mainPage.Open().OpenAirports().OpenMostPopularRussianAirport();
+            mainPage.Open().OpenAirports().OpenAllRussianAirports();
 
             Assert.AreEqual(driver.Url, RussianAirportsPage.URL);
         }
