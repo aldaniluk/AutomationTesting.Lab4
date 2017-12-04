@@ -7,7 +7,7 @@ namespace Selenium.Pages
 {
     public class MainPage : Page
     {
-        public readonly string MAIN_URL = "https://avia.tutu.ru/";
+        public static string URL { get; private set; } = "https://avia.tutu.ru/";
 
         public MainPage(IWebDriver driver) : base(driver)
         {
@@ -15,7 +15,7 @@ namespace Selenium.Pages
 
         public MainPage Open()
         {
-            driver.Navigate().GoToUrl(MAIN_URL);
+            driver.Navigate().GoToUrl(URL);
             return this;
         }
 
@@ -58,6 +58,32 @@ namespace Selenium.Pages
             button.Click();
 
             return this;
+        }
+
+        public AviaRulesPage OrderingAirTicketsRules()
+        {
+            //find link "Правила заказа авиабилетов"
+            IWebElement rules = driver
+                .FindElements(By.TagName("a"))
+                .Where(el => el.Text == "Правила заказа авиабилетов")
+                .First();
+
+            rules.Click();
+
+            return new AviaRulesPage(driver);
+        }
+
+        public AirportPage OpenAirports()
+        {
+            //find link "Аэропорты"
+            IWebElement rules = driver
+                .FindElements(By.TagName("a"))
+                .Where(el => el.Text == "Аэропорты")
+                .First();
+
+            rules.Click();
+
+            return new AirportPage(driver);
         }
     }
 }

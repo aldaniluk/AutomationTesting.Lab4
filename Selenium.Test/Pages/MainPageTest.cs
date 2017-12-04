@@ -9,10 +9,6 @@ namespace Selenium.Test.Pages
     public class MainPageTest
     {
         private IWebDriver driver;
-        private static string EXPECTED_MAIN_URL = "https://avia.tutu.ru/";
-        private static string EXPECTED_AIR_TICKETS_URL =
-            "https://avia.tutu.ru/offers/?class=Y&passengers=100&route[0]=330-30122017-75&route[1]=75-01012018-330&changes=all";
-
 
         [SetUp]
         public void Init()
@@ -33,7 +29,7 @@ namespace Selenium.Test.Pages
             MainPage mainPage = new MainPage(driver);
             mainPage.Open();
 
-            Assert.AreEqual(driver.Url, EXPECTED_MAIN_URL);
+            Assert.AreEqual(driver.Url, MainPage.URL);
         }
 
         [Test]
@@ -41,9 +37,8 @@ namespace Selenium.Test.Pages
         {
             MainPage mainPage = new MainPage(driver);
             mainPage.Open().FindAirTickets();
-            DriverInstance.SetWaitTime(30);
 
-            Assert.AreEqual(driver.Url, EXPECTED_AIR_TICKETS_URL);
+            Assert.AreEqual(driver.Url, FindAirTicketsPage.URL);
         }
 
         [Test]
@@ -54,6 +49,24 @@ namespace Selenium.Test.Pages
             IWebElement title = driver.FindElement(By.ClassName("success_title"));
 
             Assert.IsTrue(title.Displayed);
+        }
+
+        [Test]
+        public void OrderingAirTicketsRules()
+        {
+            MainPage mainPage = new MainPage(driver);
+            mainPage.Open().OrderingAirTicketsRules();
+
+            Assert.AreEqual(driver.Url, AviaRulesPage.URL);
+        }
+
+        [Test]
+        public void OpenAirports()
+        {
+            MainPage mainPage = new MainPage(driver);
+            mainPage.Open().OpenAirports();
+
+            Assert.AreEqual(driver.Url, AirportPage.URL);
         }
     }
 }
